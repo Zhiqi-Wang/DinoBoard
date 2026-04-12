@@ -1,0 +1,69 @@
+{
+  "game_type": "splendor",
+  "selfplay": {
+    "episodes": 50,
+    "parallel_games": 8,
+    "max_workers": 8,
+    "worker_pool": "process",
+    "warm_start_episodes": 10000,
+    "warm_start_engine": "heuristic",
+    "warm_start_simulations": 1,
+    "warm_start_train_passes": 2,
+    "mcts_schedule": {
+      "type": "linear",
+      "start_simulations": 10,
+      "end_simulations": 500
+    },
+    "exploration": {
+      "temperature_initial": 1.0,
+      "temperature_final": 0.2,
+      "dirichlet_alpha": 0.3,
+      "dirichlet_epsilon": 0.25,
+      "dirichlet_on_first_n_plies": 16
+    },
+    "policy": {
+      "engine": "heuristic",
+      "simulations": 1,
+      "time_budget_ms": 0,
+      "temperature": 0.0,
+      "enable_tail_solve": false,
+      "search_options": {
+        "stop_on_draw_transition": true,
+        "enable_draw_chance": true,
+        "chance_expand_cap": 10,
+        "max_search_depth": 20,
+        "max_episode_plies": 220,
+        "value_margin_weight": 0.1,
+        "value_margin_scale": 15.0
+      }
+    }
+  },
+  "trainer": {
+    "batch_size": 2048,
+    "epochs": 1,
+    "learning_rate": 0.0003,
+    "hidden": 512,
+    "mlp_layers": 4,
+    "updates_per_step": 6,
+    "buffer_size": 300000,
+    "steps": 1,
+    "value_late_weight": 0.5,
+    "return_phase_factor": 0.6
+  },
+  "gating": {
+    "games": 100,
+    "accept_win_rate": 0.55,
+    "eval_every_steps": 100,
+    "eval_workers": 8,
+    "eval_games": 100,
+    "history_best_games": 100,
+    "history_best_accept_win_rate": 0.55,
+    "save_latest_every_steps": 20
+  },
+  "benchmark_engine": "heuristic",
+  "benchmark_onnx_path": null,
+  "diagnostics": {
+    "enabled": true,
+    "zero_value_epsilon": 0.05
+  }
+}

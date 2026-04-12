@@ -1,0 +1,22 @@
+.card label { display: block; margin: 8px 0; }
+
+.board-stage { padding: 16px; display: flex; align-items: center; justify-content: center; }
+.board-card { width: min(560px, 92vw); }
+.status-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.pill { border: 1px solid #d1d5db; border-radius: 999px; padding: 8px 10px; text-align: center; background: #f9fafb; font-size: 13px; }
+
+.ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ttt-cell {
+  height: 110px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 52px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ttt-cell:hover { background: #f3f4f6; }
+.ttt-cell:disabled { cursor: not-allowed; background: #f9fafb; color: #6b7280; }
+.ttt-cell.x { color: #2563eb; }
+.ttt-cell.o { color: #ef4444; }
+

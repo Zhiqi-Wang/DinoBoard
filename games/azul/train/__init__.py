@@ -1,0 +1,2 @@
+"""Azul training package."""
+

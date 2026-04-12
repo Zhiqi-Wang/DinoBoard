@@ -1,0 +1,74 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Python cache / tooling
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.python-version
+
+# Python virtual env
+.venv/
+.venv*/
+venv/
+env/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# C / C++ / CMake artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+compile_commands.json
+*.obj
+*.o
+*.so
+*.dll
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.a
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+.cache/
+
+# Local runtime envs
+.venv_debug_shared/
+
+# Training outputs / large artifacts
+games/*/train/runs/
+games/*/train/out/
+games/*/model/random
+
+# Local dependency bundles (do not upload to git)
+third_party/onnxruntime-*/
+
+# Secrets / private keys
+*.pem
+*.ppk

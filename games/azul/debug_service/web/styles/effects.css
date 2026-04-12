@@ -1,0 +1,110 @@
+.actions-wrap {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid #c6d7e3;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+.actions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.action-btn {
+  background: #334155;
+  color: #e2e8f0;
+  border: none;
+  border-radius: 8px;
+  height: 32px;
+  padding: 0 8px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.action-btn:hover { background: #0ea5e9; }
+.json {
+  background: #0b1220;
+  color: #cbd5e1;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 0;
+  min-height: 120px;
+  max-height: 220px;
+  overflow: auto;
+  font-size: 12px;
+}
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+.muted {
+  color: #94a3b8;
+  font-size: 12px;
+}
+.tile-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3000;
+}
+.anim-tile {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid #11182766;
+  font-size: 11px;
+  font-weight: 700;
+  transition: transform 360ms ease, opacity 360ms ease;
+  z-index: 3100;
+}
+.score-pop {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0ea5e9;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: transform 260ms ease, opacity 260ms ease;
+}
+.score-pop.show {
+  opacity: 1;
+  transform: translateY(-10px);
+}
+
+@media (max-width: 1200px) {
+  .layout { grid-template-columns: 1fr; }
+  .zoom-controls { left: 8px; }
+  .center-info {
+    position: static;
+    width: auto;
+    margin-top: 8px;
+  }
+  .table-area {
+    min-height: 730px;
+    padding-top: 22px;
+  }
+  .factories {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .center-pool {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 192px;
+  }
+  .players { grid-template-columns: 1fr; }
+  .actions-grid { grid-template-columns: repeat(2, 1fr); }
+}

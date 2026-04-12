@@ -1,0 +1,13 @@
+启动服务（编译并启动）：
+cd "d:/cursor/Board_game_AI_framework/DinoBoard Intelligence"; $KillDebugLocks = { $roots = Get-CimInstance Win32_Process | Where-Object { $_.Name -match '^(python|python3|pythonw|py)(\.exe)?$' -and $null -ne $_.CommandLine -and ( $_.CommandLine.ToLower().Contains('general.debug_hub.app') -or $_.CommandLine.ToLower().Contains('.debug_service.app') ) }; if ($roots) { $rootIds = @($roots | ForEach-Object { [int]$_.ProcessId }); $treeRoots = @($roots | Where-Object { $rootIds -notcontains [int]$_.ParentProcessId }); if (-not $treeRoots -or $treeRoots.Count -eq 0) { $treeRoots = $roots }; foreach ($r in $treeRoots) { cmd /c "taskkill /PID $($r.ProcessId) /T /F" 2>$null | Out-Null } }; $lockProcIds = @(Get-Process -Name python,python3,pythonw,py -ErrorAction SilentlyContinue | ForEach-Object { try { if (@($_.Modules | Where-Object { $_.ModuleName -like 'cpp_*_engine*.pyd' }).Count -gt 0) { $_.Id } } catch {} } | Sort-Object -Unique); foreach ($procId in $lockProcIds) { cmd /c "taskkill /PID $procId /T /F" 2>$null | Out-Null } }; & $KillDebugLocks; Start-Sleep -Milliseconds 800; Get-ChildItem ".\games" -Directory | Sort-Object Name | Where-Object { Test-Path (Join-Path $_.FullName "debug_service\setup_env.ps1") } | ForEach-Object { $setup = Join-Path $_.FullName "debug_service\setup_env.ps1"; try { & $setup -ForceInstall } catch { & $KillDebugLocks; Start-Sleep -Milliseconds 800; & $setup -ForceInstall } }; .\run_debug_hub.ps1
+
+启动服务（不编译直接启动，不停其他进程）：
+cd "d:/cursor/Board_game_AI_framework/DinoBoard Intelligence"; .\run_debug_hub.ps1
+
+cd "d:/cursor/Board_game_AI_framework/DinoBoard Intelligence"; git add .
+git commit -m " "
+git push
+
+cd ~/projects/DinoBoard
+git pull origin main
+

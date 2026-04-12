@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DinoBoard Intelligence TicTacToe Debug</title>
+    <link rel="stylesheet" href="general-web/theme.css" />
+    <link rel="stylesheet" href="web/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <aside class="sidebar">
+        <h1>DinoBoard Intelligence</h1>
+        <div class="game-switcher-wrap">
+          <label for="game-selector">切换游戏</label>
+          <select id="game-selector"></select>
+        </div>
+        <div class="card">
+          <h2>开局</h2>
+          <div class="side-grid">
+            <button id="btn-side-first" class="side-btn active" type="button">玩家先手</button>
+            <button id="btn-side-second" class="side-btn" type="button">玩家后手</button>
+            <button id="btn-side-random" class="side-btn" type="button">随机</button>
+          </div>
+          <label>难度</label>
+          <div class="difficulty-grid">
+            <button id="btn-diff-heuristic" class="side-btn" type="button">启发式</button>
+            <button id="btn-diff-experience" class="side-btn active" type="button">体验</button>
+            <button id="btn-diff-expert" class="side-btn" type="button">专家</button>
+            <button id="btn-diff-master" class="side-btn" type="button">大师</button>
+          </div>
+          <button id="btn-start">开始对局</button>
+          <div id="start-msg" class="muted"></div>
+        </div>
+
+        <div class="card">
+          <h2>高级功能</h2>
+          <button id="btn-undo">悔棋</button>
+          <button id="btn-force">替对手落子</button>
+          <button id="btn-hint">智能提示</button>
+          <div id="ops-msg" class="muted"></div>
+        </div>
+      </aside>
+
+      <section class="board-stage" id="board-stage">
+        <div class="card board-card">
+          <div class="general-hints">
+            <div class="general-hint-line" id="hint-turn-line">当前轮到：--</div>
+            <div class="general-hint-line" id="hint-message-line">玩法：在 3x3 棋盘上连成一线即可获胜</div>
+            <div class="general-hint-line" id="hint-score-line">当前分数：--</div>
+            <div class="general-hint-line" id="hint-winrate-line">对手预估胜率：--</div>
+            <div class="general-hint-line" id="hint-suggest-line">AI 提示：--</div>
+          </div>
+          <div id="ttt-board" class="ttt-board"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="zoom-controls" id="zoom-controls" aria-label="缩放控制">
+      <button id="btn-zoom-out" class="zoom-btn" type="button" title="缩小">-</button>
+      <span id="zoom-value" class="zoom-value">100%</span>
+      <button id="btn-zoom-in" class="zoom-btn" type="button" title="放大">+</button>
+    </div>
+
+    <script type="module" src="web/app.js"></script>
+  </body>
+</html>
+
