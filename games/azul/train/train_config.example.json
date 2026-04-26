@@ -1,0 +1,57 @@
+{
+  "game_type": "azul",
+  "selfplay": {
+    "episodes": 50,
+    "parallel_games": 8,
+    "max_workers": 8,
+    "worker_pool": "process",
+    "warm_start_episodes": 10000,
+    "warm_start_engine": "heuristic",
+    "warm_start_simulations": 1,
+    "warm_start_train_passes": 2,
+    "mcts_schedule": {
+      "type": "linear",
+      "start_simulations": 500,
+      "end_simulations": 500,
+      "warmup_episodes": 0,
+      "end_episode": 50
+    },
+    "policy": {
+      "engine": "netmcts",
+      "simulations": 500,
+      "time_budget_ms": 0,
+      "temperature": 0.8,
+      "enable_tail_solve": true,
+      "search_options": {
+        "stop_on_round_transition": true,
+        "enable_round_transition_chance": true,
+        "chance_expand_cap": 200,
+        "max_episode_plies": 100,
+        "value_margin_weight": 0.1,
+        "value_margin_scale": 15.0
+      }
+    }
+  },
+  "trainer": {
+    "batch_size": 2048,
+    "epochs": 1,
+    "learning_rate": 0.0003,
+    "hidden": 512,
+    "mlp_layers": 4,
+    "updates_per_step": 6,
+    "buffer_size": 300000,
+    "steps": 10,
+    "value_late_weight": 0.6
+  },
+  "gating": {
+    "games": 100,
+    "accept_win_rate": 0.55,
+    "eval_every_steps": 100,
+    "eval_workers": 8,
+    "eval_games": 100,
+    "history_best_games": 100,
+    "history_best_accept_win_rate": 0.55,
+    "save_latest_every_steps": 20
+  },
+  "benchmark_onnx_path": "d:/cursor/Board_game_AI_framework/DinoBoard Intelligence/games/azul/model/model_best.onnx"
+}

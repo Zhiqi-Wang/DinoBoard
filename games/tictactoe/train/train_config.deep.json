@@ -1,0 +1,41 @@
+{
+  "game_type": "tictactoe",
+  "selfplay": {
+    "episodes": 3000,
+    "parallel_games": 8,
+    "max_workers": 8,
+    "mcts_schedule": {
+      "type": "linear",
+      "start_simulations": 400,
+      "end_simulations": 5000,
+      "warmup_episodes": 0,
+      "end_episode": 3000
+    },
+    "exploration": {
+      "temperature_initial": 1.2,
+      "temperature_final": 0.05,
+      "dirichlet_alpha": 0.3,
+      "dirichlet_epsilon": 0.25,
+      "dirichlet_on_first_n_plies": 2
+    },
+    "policy": {
+      "engine": "netmcts",
+      "simulations": 1200,
+      "time_budget_ms": 0,
+      "temperature": 0.0,
+      "enable_tail_solve": false
+    }
+  },
+  "trainer": {
+    "batch_size": 128,
+    "epochs": 1,
+    "learning_rate": 0.001
+  },
+  "gating": {
+    "games": 800,
+    "accept_win_rate": 0.55
+  },
+  "benchmark_engine": "heuristic",
+  "benchmark_onnx_path": null
+}
+

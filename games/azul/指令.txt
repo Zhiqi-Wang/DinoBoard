@@ -1,0 +1,37 @@
+cd "D:\cursor\Board_game_AI_framework\DinoBoard Intelligence"; powershell -ExecutionPolicy Bypass -File "general/scripts/run_game_train.ps1" -Game azul -SleepSeconds 1 -RefreshSeconds 1 -OpenLogWindow --config "games/azul/train/train_config.example.json" --workers 8 --steps 1000 --schedule-start-simulations 10 --schedule-end-simulations 500 --eval-simulations 200 --history-best-games 100 --selfplay-temp-initial 1.0 --selfplay-temp-final 0.2 --selfplay-temp-decay-plies 60
+
+停止当前 Azul 训练（安全版，只匹配本项目训练进程）：
+cd "D:\cursor\Board_game_AI_framework\DinoBoard Intelligence"
+$roots = Get-CimInstance Win32_Process | Where-Object {
+  $_.Name -match '^(python|python3|py)(\.exe)?$' -and
+  $null -ne $_.CommandLine -and
+  $_.CommandLine.ToLower().Contains('games.azul.train.plugin')
+}
+if (-not $roots) {
+  Write-Host 'No matching training root process found.'
+} else {
+  $roots | Select-Object ProcessId, ParentProcessId, Name, CommandLine | Format-Table -AutoSize
+  $rootIds = @($roots | ForEach-Object { [int]$_.ProcessId })
+  $treeRoots = @($roots | Where-Object { $rootIds -notcontains [int]$_.ParentProcessId })
+  if (-not $treeRoots -or $treeRoots.Count -eq 0) { $treeRoots = $roots }
+  foreach ($r in $treeRoots) {
+    cmd /c "taskkill /PID $($r.ProcessId) /T /F" 2>$null | Out-Null
+  }
+  Start-Sleep -Milliseconds 400
+}
+
+# 二次兜底：清理仍残留的 spawn worker（父进程可能已退出）
+$leftover = Get-CimInstance Win32_Process | Where-Object {
+  $_.Name -match '^(python|python3|py)(\.exe)?$' -and
+  $null -ne $_.CommandLine -and
+  (
+    $_.CommandLine.ToLower().Contains('games.azul.train.plugin') -or
+    ($_.CommandLine.ToLower().Contains('multiprocessing.spawn') -and $_.CommandLine.ToLower().Contains('--multiprocessing-fork'))
+  )
+}
+if ($leftover) {
+  $leftover | Select-Object ProcessId, ParentProcessId, Name, CommandLine | Format-Table -AutoSize
+  foreach ($p in $leftover) { Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue }
+}
+
+Write-Host 'Azul training stop command finished.'
