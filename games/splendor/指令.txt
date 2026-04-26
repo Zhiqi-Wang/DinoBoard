@@ -119,3 +119,9 @@ if ($leftover) {
 }
 
 Write-Host 'Splendor training stop command finished.'
+
+服务器查看训练日志：
+cd ~/projects/DinoBoard && bash scripts/tail_log.sh
+
+服务器查看benchmark胜率变化：
+cd ~/projects/DinoBoard && bash scripts/eval_history.sh
